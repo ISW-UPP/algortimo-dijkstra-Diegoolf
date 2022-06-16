@@ -1,0 +1,38 @@
+Algoritmo de Dijkstra. También llamado algoritmo de caminos mínimos, es un algoritmo para la determinación del camino más corto dado un vértice origen al resto de vértices en un grafo con pesos en cada arista. 
+Su nombre se refiere a Edsger Dijkstra, quien lo describió por primera vez en 1959.
+En múltiples aplicaciones donde se aplican los grafos, es necesario conocer el camino de menor costo entre dos vértices dados:
+
+Distribución de productos a una red de establecimientos comerciales.
+Distribución de correos postales.
+Sea G = (V, A) un grafo dirigido ponderado.
+
+Características del algoritmo
+Es un algoritmo greddy.
+Trabaja por etapas, y toma en cada etapa la mejor solución sin considerar consecuencias futuras.
+El óptimo encontrado en una etapa puede modificarse posteriormente si surge una solución mejor.
+
+Pasos del algoritmo
+
+
+Sea V un conjunto de vértices de un grafo.
+Sea C una matriz de costos de las aristas del grafo, donde en C[u,v] se almacena el costo de la arista entre u y v.
+Sea S un conjunto que contendrá los vértices para los cuales ya se tiene determinado el camino mínimo.
+Sea D un arreglo unidimensional tal que D[v] es el costo del camino mínimo del vértice origen al vértice v.
+Sea P un arreglo unidimensional tal que P[v] es el vértice predecesor de v en el camino mínimo que se tiene construido.
+Sea vinicial el vértice origen. Recordar que el Algoritmo Dijkstra determina los caminos mínimos que existen partiendo de un vértice origen al resto de los vértices.
+
+Pseudocódigo
+Cola de prioridad
+ DIJKSTRA (Grafo G, nodo_fuente s)
+ para u ∈ V[G] hacer 
+   distancia[u] = INFINITO 
+   padre[u] = NULL 
+ distancia[s] = 0 
+ adicionar (cola, (s,distancia[s])) 
+ mientras que cola no es vacía hacer 
+    u = extraer_minimo(cola) 
+   para todos v ∈ adyacencia[u] hacer 
+    si distancia[v] > distancia[u] + peso (u, v) hacer 
+      distancia[v] = distancia[u] + peso (u, v) 
+      padre[v] = u 
+      adicionar(cola,(v,distancia[v]))
