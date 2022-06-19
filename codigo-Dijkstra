@@ -1,0 +1,103 @@
+class Camino:
+    def __init__(self, ari, peso):
+        self.ari = ari
+        self.peso = peso
+        
+class Arista:
+    def __init__(self, vi, vf, peso):
+        self.vi = vi
+        self.vf = vf
+        self.peso = peso
+
+def dijkstra(origen, destino, arista, ari):
+
+    caminos = []
+    if(len(ari) != 0):
+        for arista in ari:
+            camino = Camino([], 0)
+
+            for ariR in ari:
+                if(ariR.vi== origen):
+                    camino.ari.append(ariR)
+                    camino.peso = camino.peso + ariR.peso
+
+                    if(ariR.vf == destino):
+                        caminos.append(camino)
+                        break
+                    else:
+                        origen = ariR.vf
+                        
+        menor = caminos[0]
+        for camino in caminos:
+            if(camino.peso < menor.peso):
+                menor = camino
+
+        print("Camino mas corto")
+        print(f"Acomulado ->> {menor.peso}")
+        print(f"Iteraciones ->> {len(menor.ari)}")
+
+        for arista in menor.ari:
+            print(f"{arista.vertice_inicial} -> {arista.vertice_final}")
+            print(f"Peso ->> {arista.peso}")
+
+    else:
+        print("vertices inexistentes")
+
+op = 1
+vertices = []
+ari = []
+respu = input("desea que se muestre el Menu? -- ||Si/No||")
+
+while respu == "Si" :  
+
+    print('''
+||       1.- agregar nodos          ||
+||       2.- agregar arista         ||
+||       3.- Mostrar arista         ||
+||       4.- Mostrar grafo          ||
+||       5.- Mostrar nodos          ||
+||       6.- Dijkstra               ||
+||       7.- Salir                  ||''') 
+    
+    op = int(input("\n ingrese una opcion:  "))
+
+    
+    if op == 1:
+        nv = int(input("Ingresa la cantidad de vertices")) 
+
+        for i in range(0, nv):   
+            print(f"Vertice ->> {i+1}")
+            letra = input("Letra ->>  ")
+            vertices.append(letra)
+
+    
+    elif op == 2:
+        verti1 = input("Vertice inicial:")
+        verti2 = input("Vertice final:")
+        peso = int(input("Peso:"))
+        ari.append(Arista(verti1, verti2, peso))
+        print("agregada con exito")
+        
+    
+    elif op == 4:
+        for arista in ari:
+            print(f"Vertice {arista.vertice_inicial} apunta a vertice {arista.vertice_final}")
+
+    
+    elif op == 3:
+        for arista in ari:
+            print(f"{arista.vertice_inicial}  ->  {arista.vertice_final}")
+
+    
+    elif op == 5:
+        print("Vertices:",', '.join(vertices))
+
+    
+    elif op == 6:
+        origen = input("Nodo Origen: ")
+        destino = input("Destino: ")   
+        dijkstra(origen, destino, arista, ari)
+
+    
+    elif op == 7:
+        break
